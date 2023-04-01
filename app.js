@@ -62,6 +62,7 @@ let Productarray = [
 // // this is a single operation.
 function getRandomproduct() {
   // we want to set a randon set randomindex to a random number between 0 and 19
+  // look at salmon cookies random # funtion.
   let randomIndex = 2;
   let randomProduct = Productarray[randomIndex];
   return randomProduct;
