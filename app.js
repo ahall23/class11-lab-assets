@@ -47,26 +47,41 @@ let Productarray = [
   wine,
 ];
 
-// let numbers = {
-// one: 1,
-// two: 2,
-// three: 3,
-// Sum: function () {
-//   this.one + this.two + this.three;
-//   return this.one + this.two + this.three;
-// },
-// };
-// numbers.Sum();
-// let firstNumber = numbers.one;
-// let Sum = numbers.Sum();
-// // this is a single operation.
-function getRandomproduct() {
+function getRandomproduct(Productarray) {
   // we want to set a randon set randomindex to a random number between 0 and 19
   // look at salmon cookies random # funtion.
-  let randomIndex = 2;
-  let randomProduct = Productarray[randomIndex];
-  return randomProduct;
+  let randomProducts = [];
+  let randomIndex1 = Math.random() * Productsarray.length;
+  randomIndex1 = Math.floor(randomIndex1);
+  let randomIndex2 = Math.random() * Productsarray.length;
+  randomIndex2 = Math.floor(randomIndex2);
+  let randomIndex3 = Math.random() * Productsarray.length;
+  randomIndex3 = Math.floor(randomIndex3);
+
+  if (randomIndex1 === randomIndex2) {
+    randomIndex1 = Math.random() * Productarray.length;
+    randomIndex1 = Math.floor(randomIndex1);
+  } else if (randomIndex2 === randomIndex3) {
+    randomIndex3 = Math.random() * Productarray.length;
+    randomIndex3 = Math.floor(randomIndex3);
+  } else if (randomIndex3 === randomIndex1) {
+    randomIndex1 = Math.random() * Productarray.length;
+    randomIndex1 = Math.floor(randomIndex1);
+  }
+
+  let randomProduct1 = Productarray[randomIndex];
+  let randomProduct2 = Productarray[randomIndex];
+  let randomProduct3 = Productarray[randomIndex];
+
+  randomProducts.push(randomProduct1);
+  randomProducts.push(randomProduct2);
+  randomProducts.push(randomProduct3);
+  return randomProducts;
 }
+let UserClicks = 0;
+letdisplay = document.getElementById("Display");
+displayimages.addEventListener("click", ImageEvents);
+let img1 = document.getElementById("image1");
 
 function displayimages(image1, image2, image3) {
   let image1HTML = document.getElementById("image1");
@@ -76,19 +91,20 @@ function displayimages(image1, image2, image3) {
   let image3HTML = document.getElementById("image3");
   image3HTML.setAttribute("src", image3);
 }
-let product1 = getRandomproduct();
-console.log(product1);
-displayimages(
-  product1.imagePath,
-  "./images/chair.jpg",
-  "./images/bubbleGum.jpg"
-);
-function selectProduct() {
-  let randomIndex = Math.floor(Math.random() * products.length);
-  let product = products[randomIndex];
-  if (!selectedProducts.includes(product)) {
-    selectedProducts.push(product);
-  } else {
-    selectProduct();
-  }
-}
+
+// let product1 = getRandomproduct();
+// console.log(product1);
+// displayimages(
+//   product1.imagePath,
+//   "./images/chair.jpg",
+//   "./images/bubbleGum.jpg"
+// );
+
+// function selectProduct() {
+//   let randomIndex = Math.floor(Math.random() * products.length);
+//   let product = products[randomIndex];
+//   if (!selectedProducts.includes(product)) {
+//     selectedProducts.push(product);
+//   } else {
+//     selectProduct();
+//   }
