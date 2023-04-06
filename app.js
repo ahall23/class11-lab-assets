@@ -4,6 +4,7 @@ function Product(name, imagePath) {
   this.name = name;
   this.imagePath = imagePath;
   this.timesShown = 0;
+  this.timesclicked = 0;
 }
 
 let bag = new Product("bag", "./images/bag.jpg");
@@ -47,27 +48,34 @@ let Productarray = [
   wine,
 ];
 
-function getRandomproduct(Productarray) {
+function getRandomProducts(Productarray) {
   // we want to set a randon set randomindex to a random number between 0 and 19
   // look at salmon cookies random # funtion.
   let randomProducts = [];
-  let randomIndex1 = Math.random() * Productsarray.length; // getting a # between 0 & 19
+  let randomIndex1 = Math.random() * Productarray.length; // getting a # between 0 & 19
   randomIndex1 = Math.floor(randomIndex1); //rounding 👇🏽 the #
-  let randomIndex2 = Math.random() * Productsarray.length;
+  let randomIndex2 = Math.random() * Productarray.length;
   randomIndex2 = Math.floor(randomIndex2);
-  let randomIndex3 = Math.random() * Productsarray.length;
+  let randomIndex3 = Math.random() * Productarray.length;
   randomIndex3 = Math.floor(randomIndex3);
 
-  if (randomIndex1 === randomIndex2) {
-    randomIndex1 = Math.random() * Productarray.length;
-    randomIndex1 = Math.floor(randomIndex1);
-  } else if (randomIndex2 === randomIndex3) {
-    randomIndex3 = Math.random() * Productarray.length;
-    randomIndex3 = Math.floor(randomIndex3);
-  } else if (randomIndex3 === randomIndex1) {
-    randomIndex1 = Math.random() * Productarray.length;
-    randomIndex1 = Math.floor(randomIndex1);
+  while (randomIndex1 === randomIndex2) {
+    randomIndex1 = Math.floor(Math.random() * Productarray.length);
   }
+  while (randomIndex3 === randomIndex2) {
+    randomIndex1 = Math.floor(Math.random() * Productarray.length);
+  }
+
+  // if (randomIndex1 === randomIndex2) {
+  //   randomIndex1 = Math.random() * Productarray.length;
+  //   randomIndex1 = Math.floor(randomIndex1);
+  // } else if (randomIndex2 === randomIndex3) {
+  //   randomIndex3 = Math.random() * Productarray.length;
+  //   randomIndex3 = Math.floor(randomIndex3);
+  // } else if (randomIndex3 === randomIndex1) {
+  //   randomIndex1 = Math.random() * Productarray.length;
+  //   randomIndex1 = Math.floor(randomIndex1);
+  // }
 
   let randomProduct1 = Productarray[randomIndex1]; //declaring random product 1, 2, and 3 = to a random product
   let randomProduct2 = Productarray[randomIndex2];
@@ -76,54 +84,61 @@ function getRandomproduct(Productarray) {
   randomProducts.push(randomProduct1);
   randomProducts.push(randomProduct2);
   randomProducts.push(randomProduct3);
+
   return randomProducts;
 }
+
 let UserClicks = 0;
 let display = document.getElementById("Display");
-displayimage.addEventListener("click", ImageEvents);
+display.addEventListener("click", ImageEvents);
+
 let img1 = document.getElementById("image1");
+let img2 = document.getElementById("image2");
+let img3 = document.getElementById("image3");
 
 function displayimage() {
-  let randomProduct = getRandomproducts(Productarray);
-  let firstRandomProduct = randomProduct[0];
+  let RandomProducts = getRandomProducts(Productarray);
+  let firstRandomProduct = RandomProducts[0];
 
   let image1HTML = document.getElementById("image1");
   image1HTML.src = firstRandomProduct.imagePath;
-  firstRandomProduct.timeshown = firstRandomProduct.timesShown + 1;
+  firstRandomProduct.timesShown = firstRandomProduct.timesShown + 1;
 
   console.log(UserClicks);
 
-  let SecondRandondomProduct = randomProduct[1];
+  let secondRandomProduct = RandomProducts[1];
 
   let image2HTML = document.getElementById("image2");
-  image2HTML.src = SecondRandondomProduct.imagePath;
-  SecondRandondomProduct.timesShown = SecondRandomProduct.timesShown + 1;
+  image2HTML.src = secondRandomProduct.imagePath;
+  secondRandomProduct.timesShown = secondRandomProduct.timesShown + 1;
 
-  let thirdRandondomProduct = randomProduct[2];
+  let thirdRandomProduct = RandomProducts[2];
 
   let image3HTML = document.getElementById("image3");
-  image3HTML.src = SecondRandondomProduct.imagePath;
-  thirdRandondomProduct.timesShown = SecondRandomProduct.timesShown + 1;
+  image3HTML.src = thirdRandomProduct.imagePath;
+  thirdRandomProduct.timesShown = thirdRandomProduct.timesShown + 1;
 }
 
 function ImageEvents(event) {
   UserClicks++;
   console.log(event);
-}
 
-if (event.target.nodeName === "IMG") {
-  let pickedElement = event.target.getAttribute("src");
-  console.log(pickedElement);
-  for (let index = 0; index < products.lenghth; index++) {
-    if (pickedElement === products[index].imagepath) {
-      product[index].timesclicked = product[index].timesclicked + 1;
-      console.log(product[index].timesclicked);
+  if (event.target.nodeName === "IMG") {
+    let pickedElement = event.target.getAttribute("src");
+    console.log(pickedElement);
+    for (let index = 0; index < Productarray.length; index++) {
+      if (pickedElement === Productarray[index].imagepath) {
+        Productarray[index].timesclicked = Productarray[index].timesclicked + 1;
+        console.log(Productarray[index].timesclicked);
+      }
     }
   }
-}
-if (UserClicks >= 25) {
-  document.getElementById("Display").removeEventListener("click", ImageEvents);
-  alert("Out of Votes 😵‍💫 ");
+  if (UserClicks >= 25) {
+    document
+      .getElementById("Display")
+      .removeEventListener("click", ImageEvents);
+    alert("Out of Votes 😵‍💫 ");
+  }
 }
 displayimage();
 
@@ -131,45 +146,108 @@ function Showresults() {
   //create an ul
   //loop through products
   let ul = document.createElement("ul");
-  for (let index = 0; index < products.length; index++) {
+  for (let index = 0; index < Productarray.length; index++) {
     let li = document.createElement("li");
     li.innerHTML =
-      products[index].productName +
+      Productarray[index].productName +
       " got " +
-      products[index].timesclicked +
+      Productarray[index].timesclicked +
       " votes " +
       " and was shown " +
-      products[index].timesShown;
+      Productarray[index].timesShown;
     ul.append(li);
   }
   document.body.append(ul);
+  console.log(Showresults);
+  console.log(Product);
 }
-console.log(Showresults);
-//calling a function so the images can show
-
-console.log(products);
-// function displayimage(image1, image2, image3) {
-//   let image1HTML = document.getElementById("image1");
-//   image1HTML.setAttribute("src", image1);
-//   let image2HTML = document.getElementById("image2");
-//   image2HTML.setAttribute("src", image2);
-//   let image3HTML = document.getElementById("image3");
-//   image3HTML.setAttribute("src", image3);
-// }
-
-// let product1 = getRandomproduct();
-// console.log(product1);
-// displayimages(
-//   product1.imagePath,
-//   "./images/chair.jpg",
-//   "./images/bubbleGum.jpg"
-// );
-
-// function selectProduct() {
-//   let randomIndex = Math.floor(Math.random() * products.length);
-//   let product = products[randomIndex];
-//   if (!selectedProducts.includes(product)) {
-//     selectedProducts.push(product);
-//   } else {
-//     selectProduct();
-//   }
+// const ctx = document.getElementById("myChart");
+// new Chart(ctx, {
+//   type: "bar",
+//   data: {
+//     labels: [
+//       productarray[0].productName,
+//       products[1].productName,
+//       products[2].productName,
+//       products[3].productName,
+//       products[4].productName,
+//       products[5].productName,
+//       products[6].productName,
+//       products[7].productName,
+//       products[8].productName,
+//       products[9].productName,
+//       products[10].productName,
+//       products[11].productName,
+//       products[12].productName,
+//       products[13].productName,
+//       products[14].productName,
+//       products[15].productName,
+//       products[16].productName,
+//       products[17].productName,
+//       products[18].productName,
+//     ],
+//     datasets: [
+//       {
+//         label: "# of Votes",
+//         data: [
+//           products[0].clicks,
+//           products[1].clicks,
+//           products[2].clicks,
+//           products[3].clicks,
+//           products[4].clicks,
+//           products[5].clicks,
+//           products[6].clicks,
+//           products[7].clicks,
+//           products[8].clicks,
+//           products[9].clicks,
+//           products[10].clicks,
+//           products[11].clicks,
+//           products[12].clicks,
+//           products[13].clicks,
+//           products[14].clicks,
+//           products[15].clicks,
+//           products[16].clicks,
+//           products[17].clicks,
+//           products[18].clicks,
+//         ],
+//         borderWidth: 1,
+//       },
+//       {
+//         label: "# of Times Shown",
+//         data: [
+//           products[0].timesShown,
+//           products[1].timesShown,
+//           products[2].timesShown,
+//           products[3].timesShown,
+//           products[4].timesShown,
+//           products[5].timesShown,
+//           products[6].timesShown,
+//           products[7].timesShown,
+//           products[8].timesShown,
+//           products[9].timesShown,
+//           products[10].timesShown,
+//           products[11].timesShown,
+//           products[12].timesShown,
+//           products[13].timesShown,
+//           products[14].timesShown,
+//           products[15].timesShown,
+//           products[16].timesShown,
+//           products[17].timesShown,
+//           products[18].timesShown,
+//         ],
+//         borderWidth: 1,
+//       },
+//     ],
+//   },
+//   options: {
+//     indexAxis: "y",
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// });
+// const myJSON = JSON.stringify(products);
+// window.localStorage.setItem("products", myJSON);
+// console.log("Local Storage", localStorage);
