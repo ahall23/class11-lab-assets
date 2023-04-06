@@ -52,18 +52,21 @@ function getRandomProducts(Productarray) {
   // we want to set a randon set randomindex to a random number between 0 and 19
   // look at salmon cookies random # funtion.
   let randomProducts = [];
-  let randomIndex1 = Math.random() * Productarray.length; // getting a # between 0 & 19
-  randomIndex1 = Math.floor(randomIndex1); //rounding 👇🏽 the #
-  let randomIndex2 = Math.random() * Productarray.length;
-  randomIndex2 = Math.floor(randomIndex2);
-  let randomIndex3 = Math.random() * Productarray.length;
-  randomIndex3 = Math.floor(randomIndex3);
+  // getting a # between 0 & 19
+  let randomIndex1 = Math.floor(Math.random() * Productarray.length);
+  let randomIndex2 = Math.floor(Math.random() * Productarray.length);
+  let randomIndex3 = Math.floor(Math.random() * Productarray.length);
+  // randomIndex1 = (Math.floor(randomIndex1); //rounding 👇🏽 the #
+  // let randomIndex2 = Math.random() * Productarray.length;
+  // randomIndex2 = Math.floor(randomIndex2);
+  // let randomIndex3 = Math.random() * Productarray.length;
+  // randomIndex3 = Math.floor(randomIndex3);
 
   while (randomIndex1 === randomIndex2) {
-    randomIndex1 = Math.floor(Math.random() * Productarray.length);
+    randomIndex2 = Math.floor(Math.random() * Productarray.length);
   }
-  while (randomIndex3 === randomIndex2) {
-    randomIndex1 = Math.floor(Math.random() * Productarray.length);
+  while (randomIndex3 === randomIndex2 || randomIndex3 === randomIndex1) {
+    randomIndex3 = Math.floor(Math.random() * Productarray.length);
   }
 
   // if (randomIndex1 === randomIndex2) {
